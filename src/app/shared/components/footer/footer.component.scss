@@ -1,0 +1,20 @@
+.footer {
+  &__logo {
+    text-decoration: none;
+    color: var(--color-green);
+    font-family: var(--font-titillium);
+  }
+
+  &__attribution {
+    &--link {
+      text-decoration: none;
+      color: var(--color-green);
+      font-family: var(--font-source-sans);
+    }
+  }
+
+  &__logo,
+  &__attribution {
+    font-size: 0.85rem;
+  }
+}
