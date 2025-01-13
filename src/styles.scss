@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import "scss/typography";
+@import "scss/variables";
+@import "ngx-toastr/toastr";
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Customize Success Toast */
+.toast-success {
+  background-color: var(--color-green) !important;
+}
+
+/* Customize Error Toast */
+.toast-error {
+  background-color: #dc3545 !important; /* Custom red */
+  color: #fff !important;
+}
+
+.btn-primary {
+  border: none;
+  background-color: var(--color-green) !important;
+
+  &:hover {
+    background-color: var(--color-green-dark) !important;
+  }
+}
+
+.router-link-active {
+  color: var(--color-green) !important;
+}
