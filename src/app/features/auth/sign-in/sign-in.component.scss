@@ -1,0 +1,27 @@
+.form {
+  &-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    font-family: var(--font-source-sans);
+  }
+
+  &-text {
+    & a {
+      color: var(--color-green);
+      text-decoration: none;
+    }
+
+    & a:hover {
+      text-decoration: underline;
+      color: var(--color-green-dark);
+    }
+  }
+}
+
+::ng-deep {
+  .form-control::placeholder {
+    padding-left: 0.8rem;
+    color: var(--color-gray-shade);
+  }
+}

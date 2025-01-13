@@ -1,0 +1,40 @@
+<div class="conduit-sign-in">
+  <div class="container-sm">
+    <div class="row justify-content-center">
+      <div class="col-sm-6">
+        <form [formGroup]="form" class="d-block text-center">
+          <h5 class="form-title">Sign In</h5>
+          <p class="form-text">
+            <a
+              [routerLink]="['/auth/sign-up']"
+              routerLinkActive="router-link-active"
+              >Need an account?</a
+            >
+          </p>
+          <div class="d-flex flex-column gap-3">
+            <input
+              type="text"
+              placeholder="Email"
+              formControlName="email"
+              aria-label=".form-control-lg"
+              class="form-control form-control-lg"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              formArrayName="password"
+              aria-label=".form-control-lg"
+              class="form-control form-control-lg"
+            />
+            <button
+              (click)="submit()"
+              class="btn btn-lg btn-primary align-self-end"
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
