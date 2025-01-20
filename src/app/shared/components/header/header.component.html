@@ -1,66 +1,125 @@
-<header>
+<!-- Dynamic Navbar Switch -->
+<ng-container
+  *ngTemplateOutlet="(isMobileScreen$ | async) ? mobileAppBar : desktopNavbar"
+>
+</ng-container>
+
+<!-- Mobile Bottom App Bar -->
+<ng-template #mobileAppBar>
+  <nav class="d-block d-lg-none fixed-bottom p-3 shadow">
+    <div class="container-fluid">
+      <ul class="list-group list-group-horizontal">
+        <li
+          *ngFor="let item of navMenu; trackBy: trackByFn"
+          class="list-group-item flex-fill border-0 text-center"
+        >
+          <a
+            [routerLink]="[item.url]"
+            routerLinkActive="router-link-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="gap-1 py-2"
+          >
+            <i [ngClass]="item.icon" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</ng-template>
+
+<!-- Desktop Navbar -->
+<ng-template #desktopNavbar>
   <nav class="navbar navbar-expand-lg navbar-light p-3">
     <div class="container-lg d-flex justify-content-between">
+      <!-- Brand -->
       <a
-        class="navbar-brand fw-bold"
         [routerLink]="['/']"
+        class="navbar-brand fw-bold"
         routerLinkActive="router-link-active"
         [routerLinkActiveOptions]="{ exact: true }"
-        >Conduit</a
       >
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div #navbarCollaspe class="collapse navbar-collapse" id="navbarNav">
-        <div class="ms-auto">
-          <ul class="navbar-nav">
-            <li class="nav-item">
+        Conduit
+      </a>
+
+      <!-- Navigation Items -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li *ngFor="let item of navMenu; trackBy: trackByFn">
+            <!-- Dropdown for User Menu -->
+            <ng-container *ngIf="item.subNav?.length; else regularNavItem">
+              <ng-container
+                *ngTemplateOutlet="userMenuDropdown; context: { item: item }"
+              >
+              </ng-container>
+            </ng-container>
+
+            <!-- Regular Navigation Items -->
+            <ng-template #regularNavItem>
               <a
-                (click)="closeNavbar()"
-                [routerLink]="['/']"
+                [routerLink]="[item.url]"
                 routerLinkActive="router-link-active"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="nav-link active d-flex justify-content-center align-items-center gap-2"
-                aria-current="page"
+                class="nav-link d-flex align-items-center gap-2"
               >
-                <i class="fa-regular fa-pen-to-square"></i>
-                Home
+                <i [ngClass]="item.icon"></i>
+                {{ item.label }}
               </a>
-            </li>
-            <li class="nav-item">
-              <a
-                (click)="closeNavbar()"
-                [routerLink]="['/auth/sign-in']"
-                routerLinkActive="router-link-active"
-                class="nav-link d-flex justify-content-center align-items-center gap-2"
-                href="#"
-              >
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Sign In
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                (click)="closeNavbar()"
-                [routerLink]="['/auth/sign-up']"
-                routerLinkActive="router-link-active"
-                class="nav-link d-flex justify-content-center align-items-center"
-                tabindex="-1"
-                aria-disabled="true"
-                >Sign Up</a
-              >
-            </li>
-          </ul>
-        </div>
+            </ng-template>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
-</header>
+</ng-template>
+
+<!-- User Menu Dropdown Template -->
+<ng-template #userMenuDropdown let-item="item">
+  <ng-container *ngIf="currentUser; else loginLink">
+    <div class="dropdown">
+      <div
+        role="button"
+        id="userMenuDropdown"
+        data-bs-toggle="dropdown"
+        [attr.aria-expanded]="false"
+        class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+      >
+        <i [ngClass]="item.icon"></i>
+        {{ item.label }}
+      </div>
+
+      <ul class="dropdown-menu" aria-labelledby="userMenuDropdown">
+        <ng-container
+          *ngFor="
+            let subItem of item.subNav;
+            trackBy: trackByFn;
+            let isLast = last
+          "
+        >
+          <li>
+            <hr *ngIf="isLast" class="dropdown-divider" />
+            <a
+              class="dropdown-item my-2"
+              [routerLink]="subItem.url"
+              (click)="isLast && subItem.func()"
+            >
+              <i [ngClass]="subItem.icon"></i>
+              {{ subItem.label }}
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </ng-container>
+
+  <ng-template #loginLink>
+    <a
+      [routerLink]="[item.url]"
+      routerLinkActive="router-link-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-link d-flex align-items-center gap-2"
+    >
+      <i [ngClass]="item.icon"></i>
+      {{ item.label }}
+    </a>
+  </ng-template>
+</ng-template>

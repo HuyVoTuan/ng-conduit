@@ -1,9 +1,9 @@
 <div class="conduit-sign-up">
   <div class="container-sm">
     <div class="row justify-content-center">
-      <div class="col-sm-6">
+      <div class="col-lg-6">
         <form [formGroup]="form" class="d-block text-center">
-          <h5 class="form-title">Sign In</h5>
+          <h5 class="form-title">Sign Up</h5>
           <p class="form-text">
             <a
               [routerLink]="['/auth/sign-in']"
@@ -29,7 +29,7 @@
             <input
               type="password"
               placeholder="Password"
-              formArrayName="password"
+              formControlName="password"
               aria-label=".form-control-lg"
               class="form-control form-control-lg"
             />
@@ -37,7 +37,7 @@
               (click)="submit()"
               class="btn btn-lg btn-primary align-self-end"
             >
-              Sign in
+              Sign up
             </button>
           </div>
         </form>
