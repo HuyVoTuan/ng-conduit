@@ -13,7 +13,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "codnuit",
+      "prefix": "conduit",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

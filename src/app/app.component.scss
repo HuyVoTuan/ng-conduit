@@ -1,7 +1,7 @@
 main {
   height: 100dvh;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (max-width: 768px) {
     overflow-y: auto;
     height: calc(100vh - 78px - 68px);
     max-height: calc(100vh - 78px - 68px);
